@@ -1,0 +1,7 @@
+{
+  "name": "LaserSpeed Pro",
+  "description": "Professional athletics laser measurement tool for real-time speed analysis and coaching.",
+  "requestFramePermissions": [
+    "serial"
+  ]
+}
