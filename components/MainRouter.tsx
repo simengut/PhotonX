@@ -18,6 +18,7 @@ import SensorCheck from './SensorCheck';
 import Comparison from './Comparison';
 import Analytics from './Analytics';
 import PersonalBestModal from './PersonalBestModal';
+import Guide from './Guide';
 import { Activity, Play, Calendar, Users, ChevronRight, Plus, ArrowRight, CheckCircle2, AlertCircle, Edit2 } from 'lucide-react';
 import { dbService } from '../services/db';
 import { useAuth } from '../contexts/AuthContext';
@@ -518,6 +519,9 @@ const MainRouter: React.FC = () => {
       case ViewState.SENSOR_CHECK:
         return <SensorCheck />;
 
+      case ViewState.GUIDE:
+        return <Guide />;
+
       default: // Dashboard
         return (
             <div className="max-w-5xl mx-auto">
@@ -554,52 +558,13 @@ const MainRouter: React.FC = () => {
                         </div>
                     </div>
                 </div>
-                
-                {/* Personal Bests */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                        <div className="flex items-center justify-between mb-4">
-                            <h3 className="font-serif font-bold text-xl text-[#37352F]">Personal Bests</h3>
-                        </div>
-                        <div className="bg-white border border-[#E9E9E7] rounded-xl overflow-hidden shadow-sm">
-                            {(() => {
-                                const allRuns = sessions.flatMap(s => s.runs);
-                                const pb40yd = allRuns.filter(r => r.testType === TestTypeEnum.FORTY_YARD_DASH && r.result?.time).sort((a, b) => (a.result?.time || Infinity) - (b.result?.time || Infinity))[0];
-                                const pb30m = allRuns.filter(r => r.testType === TestTypeEnum.ACCELERATION && r.result?.time).sort((a, b) => (a.result?.time || Infinity) - (b.result?.time || Infinity))[0];
-                                const pb60m = allRuns.filter(r => r.testType === TestTypeEnum.SIXTY_METER_RUN && r.result?.time).sort((a, b) => (a.result?.time || Infinity) - (b.result?.time || Infinity))[0];
 
-                                const pbs = [
-                                    pb40yd && { label: '40 Yard Dash', time: pb40yd.result?.time, athlete: athletes.find(a => a.id === pb40yd.athleteId)?.name },
-                                    pb30m && { label: '30m Acceleration', time: pb30m.result?.time, athlete: athletes.find(a => a.id === pb30m.athleteId)?.name },
-                                    pb60m && { label: '60m Run', time: pb60m.result?.time, athlete: athletes.find(a => a.id === pb60m.athleteId)?.name }
-                                ].filter(Boolean);
-
-                                if (pbs.length === 0) {
-                                    return <div className="p-8 text-center text-[#9B9A97] text-sm">No personal bests yet. Start testing!</div>;
-                                }
-
-                                return (
-                                    <div className="divide-y divide-[#E9E9E7]">
-                                        {pbs.map((pb, i) => (
-                                            <div key={i} className="p-4 flex items-center justify-between">
-                                                <div>
-                                                    <div className="font-medium text-[#37352F] text-sm">{pb.label}</div>
-                                                    <div className="text-xs text-[#787774]">{pb.athlete}</div>
-                                                </div>
-                                                <div className="text-lg font-medium text-[#37352F]">{pb.time?.toFixed(3)}s</div>
-                                            </div>
-                                        ))}
-                                    </div>
-                                );
-                            })()}
-                        </div>
+                {/* Quick Actions */}
+                <div>
+                    <div className="flex items-center justify-between mb-4">
+                        <h3 className="font-serif font-bold text-xl text-[#37352F]">Quick Actions</h3>
                     </div>
-
-                    <div>
-                        <div className="flex items-center justify-between mb-4">
-                            <h3 className="font-serif font-bold text-xl text-[#37352F]">Quick Actions</h3>
-                        </div>
-                        <div className="space-y-3">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                             <button onClick={() => setView(ViewState.LEADERBOARD)} className="w-full bg-white border border-[#E9E9E7] rounded-xl p-4 hover:border-[#37352F] transition-colors text-left flex items-center justify-between group">
                                 <div className="flex items-center gap-3">
                                     <div className="w-10 h-10 rounded-lg bg-[#F7F7F5] flex items-center justify-center group-hover:bg-[#37352F] transition-colors">
@@ -638,7 +603,6 @@ const MainRouter: React.FC = () => {
                                 </div>
                                 <ChevronRight size={16} className="text-[#E9E9E7] group-hover:text-[#37352F] transition-colors" />
                             </button>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -688,16 +652,15 @@ const MainRouter: React.FC = () => {
       <main className="flex-1 overflow-y-auto md:pl-60 h-full w-full">
         <div className="md:hidden h-14 border-b border-[#E9E9E7] flex items-center justify-center bg-white sticky top-0 z-20">
              {!logoError ? (
-                  <img 
-                    src="favicon.png?v=2" 
-                    className="w-6 h-6 object-contain" 
+                  <img
+                    src="favicon.png?v=8"
+                    className="h-8 w-auto object-contain"
                     alt="Logo"
                     onError={() => setLogoError(true)}
                   />
              ) : (
                   <Activity size={20} className="text-[#37352F]" />
              )}
-             <span className="ml-2 font-bold font-serif text-[#37352F]">LaserSpeed Pro</span>
         </div>
         <div className="p-4 pb-20 md:p-8 max-w-7xl mx-auto">
             {renderContent()}

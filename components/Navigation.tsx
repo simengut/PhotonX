@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { ViewState } from '../types';
-import { Activity, BarChart2, Users, LogOut, Zap, History, Settings, MessageSquare, TrendingUp, Trophy } from 'lucide-react';
+import { Activity, BarChart2, Users, LogOut, Zap, History, Settings, MessageSquare, TrendingUp, Trophy, Book } from 'lucide-react';
 
 interface NavigationProps {
   currentView: ViewState;
@@ -75,20 +75,19 @@ const Navigation: React.FC<NavigationProps> = ({ currentView, onChangeView, onLo
 
       {/* Desktop Sidebar */}
       <div className="hidden md:flex flex-col w-60 bg-[#F7F7F5] border-r border-[#E9E9E7] h-screen fixed left-0 top-0">
-        <div className="p-6 flex flex-col items-center gap-3 mb-2">
-           <div className="w-20 h-20 rounded-xl shadow-sm bg-[#37352F] flex items-center justify-center overflow-hidden">
-              {!logoError ? (
-                  <img
-                    src="favicon.png?v=2"
-                    alt="Logo"
-                    className="w-full h-full object-cover"
-                    onError={() => setLogoError(true)}
-                  />
-              ) : (
-                  <Activity size={44} className="text-white" />
-              )}
-           </div>
-           <span className="font-medium text-[#37352F] tracking-tight text-lg">LaserSpeed Pro</span>
+        <div className="px-6 pt-6 pb-2 flex flex-col items-center">
+           {!logoError ? (
+              <img
+                src="favicon.png?v=8"
+                alt="Logo"
+                className="w-32 h-auto"
+                onError={() => setLogoError(true)}
+              />
+           ) : (
+              <div className="w-20 h-20 rounded-xl shadow-sm bg-[#37352F] flex items-center justify-center">
+                <Activity size={44} className="text-white" />
+              </div>
+           )}
         </div>
         
         <nav className="flex-1 flex flex-col gap-0.5 px-2">
@@ -104,6 +103,7 @@ const Navigation: React.FC<NavigationProps> = ({ currentView, onChangeView, onLo
 
           <div className="mt-6 px-3 py-2 text-xs font-bold text-[#9B9A97] uppercase tracking-wider">Tools</div>
           <NavItem view={ViewState.SENSOR_CHECK} icon={Activity} label="Sensor Check" />
+          <NavItem view={ViewState.GUIDE} icon={Book} label="User Guide" />
           <NavItem view={ViewState.SETTINGS} icon={Settings} label="Settings" />
 
           <div className="mt-6 px-3 py-2 text-xs font-bold text-[#9B9A97] uppercase tracking-wider">Community</div>

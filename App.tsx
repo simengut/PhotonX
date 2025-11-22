@@ -42,20 +42,19 @@ const AuthScreen: React.FC = () => {
         <div className="m-auto w-full max-w-md p-8">
           <div className="bg-white border border-[#E9E9E7] rounded-xl shadow-xl p-8">
             <div className="text-center mb-8">
-              <div className="inline-flex items-center justify-center w-24 h-24 rounded-2xl bg-[#37352F] text-white mb-4 shadow-sm overflow-hidden">
-                  {!logoError ? (
-                    <img
-                        src="favicon.png?v=2"
-                        alt="Logo"
-                        className="w-full h-full object-cover"
-                        onError={() => setLogoError(true)}
-                    />
-                  ) : (
-                    <Activity size={48} className="text-white" />
-                  )}
-              </div>
-              <h1 className="text-3xl font-serif font-bold tracking-tight mb-2">LaserSpeed Pro</h1>
-              <p className="text-[#9B9A97] text-sm">Professional athletics measurement.</p>
+              {!logoError ? (
+                <img
+                    src="favicon.png?v=8"
+                    alt="Logo"
+                    className="w-48 h-auto mx-auto mb-3"
+                    onError={() => setLogoError(true)}
+                />
+              ) : (
+                <div className="inline-flex items-center justify-center w-24 h-24 rounded-2xl bg-[#37352F] text-white mb-3">
+                  <Activity size={48} className="text-white" />
+                </div>
+              )}
+              <p className="text-[#9B9A97] text-sm">Professional athletics measurement</p>
             </div>
 
             <form onSubmit={handleAuth} className="space-y-4">

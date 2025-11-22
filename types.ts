@@ -13,7 +13,8 @@ export enum ViewState {
   SENSOR_CHECK = 'SENSOR_CHECK',
   SETTINGS = 'SETTINGS',
   LEADERBOARD = 'LEADERBOARD',
-  ANALYTICS = 'ANALYTICS'
+  ANALYTICS = 'ANALYTICS',
+  GUIDE = 'GUIDE'
 }
 
 export enum TestType {
